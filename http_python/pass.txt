@@ -1,0 +1,2 @@
+このフォルダはLinux(atlas)の
+「~/http_python」と同じである。
