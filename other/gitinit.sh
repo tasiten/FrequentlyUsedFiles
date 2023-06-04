@@ -4,7 +4,7 @@
 
 #引数がない場合
 if [ $# -eq 0 ]; then
-    echo "デフォルトのユーザ名とメルアドで登録します"
+    echo "デフォルトのメールアドレスとユーザ名で登録します"
     git config --global user.email sniff_sniff@me.com
     git config --global user.name "tasiten"
     git config --global gui.encoding utf-8
@@ -25,4 +25,6 @@ else
     git config --global color.branch auto
     git config --global core.editor 'vim -c "set fenc=utf-8"'
 fi
-
+echo ".gitconfigにメールアドレスとユーザ名を以下のように設定しました"
+git config user.email
+git config user.name
