@@ -1,4 +1,5 @@
 #! /bin/bash
+#仮想カメラを作成するコード
 
 if [ ! -c /dev/video"$1" ]; then #[]内のスペースも正しく書く必要がある。video$1がない場合
         sudo modprobe -r  v4l2loopback
