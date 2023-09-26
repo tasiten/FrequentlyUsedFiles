@@ -1,0 +1,23 @@
+$ cat > ~/.inputrc
+（以下をペーストしてから，CTL+Dをタイプ）
+
+"\M-[D": backward-char
+"\M-[C": forward-char
+"\M-[A": history-search-backward
+"\M-[B": history-search-forward
+
+set mark-symlinked-directories on
+"\M-[1;5D": history-backward-word
+"\M-[5D": history-backward-word
+"\C-n":history-search-forward
+"\C-p":history-search-backward
+
+"\e[A": history-search-backward
+"\e[0A": history-search-backward
+"\e[B": history-search-forward
+"\e[0B": history-search-forward
+"\e\e[C": forward-word
+"\e\e[D": backward-word
+
+"\C-u":unix-line-discard
+"\C-q":menu-complete
