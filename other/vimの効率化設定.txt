@@ -1,0 +1,11 @@
+$ cat > ~/.vimrc
+（以下をペーストしてから，CTL+Dをタイプ）
+" set number
+set mouse-=a
+autocmd InsertLeave * set nopaste
+set tabstop=4
+set syntax=on
+syntax enable
+set clipboard^=unnamed,unnamedplus
+set noswapfile
+set nobackup
