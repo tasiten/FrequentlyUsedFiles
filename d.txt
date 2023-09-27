@@ -1,0 +1,36 @@
+import boto3
+from datetime import datetime
+
+# CloudWatch クライアントを作成
+cloudwatch = boto3.client('cloudwatch')
+
+# 指定した期間のデータポイントを取得
+response = cloudwatch.get_metric_data(
+    MetricDataQueries=[
+        {
+            'Id': 'm1',
+            'MetricStat': {
+                'Metric': {
+                    'Namespace': 'AWS/RDS',
+                    'MetricName': 'CPUUtilization',
+                    'Dimensions': [
+                        {
+                            'Name': 'DBInstanceIdentifier',
+                            'Value': 'biz3-loadtest-db01'
+                        },
+                    ]
+                },
+                'Period': 60,  # 1分ごとのデータ
+                'Stat': 'Average'
+            },
+            'ReturnData': True,
+        },
+    ],
+    StartTime=datetime(2023, 9, 20, 13, 0),  # 2023年9月20日13:00
+    EndTime=datetime(2023, 9, 20, 14, 0)     # 2023年9月20日14:00
+)
+
+# 取得したデータポイントを表示
+for metric_result in response.get('MetricDataResults', []):
+    for time, value in zip(metric_result['Timestamps'], metric_result['Values']):
+        print(f"Time: {time}, Value: {value}")
