@@ -1,36 +1,53 @@
-import boto3
-from datetime import datetime
+require 'aws-sdk-cloudwatch'
+require 'csv'
+require 'date'
 
-# CloudWatch クライアントを作成
-cloudwatch = boto3.client('cloudwatch')
+# CloudWatch クライアントを作成。サービス名と地域を指定する必要がある。
+cloudwatch = Aws::CloudWatch::Client.new(region: 'ap-northeast-1')
+
+# メトリクス情報
+namespace = 'AWS/RDS'
+metricname = 'CPUUtilization'
+dimensions_name = 'DBInstanceIdentifier'
+dimensions_value = 'biz3-loadtest-db01'
+period = 300  # 1分ごとのデータ
+stat = 'Average' # 平均モードでデータ取得
+start_time = "2023-09-20-17-00-00" # データ取得範囲開始時刻(年-月-日-時-分-秒)
+end_time = "2023-09-20-18-00-00" # データ取得範囲終了時刻(年-月-日-時-分-秒)
 
 # 指定した期間のデータポイントを取得
-response = cloudwatch.get_metric_data(
-    MetricDataQueries=[
-        {
-            'Id': 'm1',
-            'MetricStat': {
-                'Metric': {
-                    'Namespace': 'AWS/RDS',
-                    'MetricName': 'CPUUtilization',
-                    'Dimensions': [
-                        {
-                            'Name': 'DBInstanceIdentifier',
-                            'Value': 'biz3-loadtest-db01'
-                        },
-                    ]
-                },
-                'Period': 60,  # 1分ごとのデータ
-                'Stat': 'Average'
-            },
-            'ReturnData': True,
+response = cloudwatch.get_metric_data({
+  metric_data_queries: [
+    {
+      id: 'm1',
+      metric_stat: {
+        metric: {
+          namespace: namespace,
+          metric_name: metricname,
+          dimensions: [
+            {
+              name: dimensions_name,
+              value: dimensions_value
+            }
+          ]
         },
-    ],
-    StartTime=datetime(2023, 9, 20, 13, 0),  # 2023年9月20日13:00
-    EndTime=datetime(2023, 9, 20, 14, 0)     # 2023年9月20日14:00
-)
+        period: period,
+        stat: stat
+      },
+      return_data: true
+    }
+  ],
+  start_time: DateTime.strptime(start_time, '%Y-%m-%d-%H-%M-%S'),
+  end_time: DateTime.strptime(end_time, '%Y-%m-%d-%H-%M-%S')
+})
 
-# 取得したデータポイントを表示
-for metric_result in response.get('MetricDataResults', []):
-    for time, value in zip(metric_result['Timestamps'], metric_result['Values']):
-        print(f"Time: {time}, Value: {value}")
+# 取得したデータポイントを表示、CSV出力
+CSV.open("#{metricname}.csv", 'wb') do |csv|
+  csv << ["Time", "Value"]
+  response.metric_data_results.each do |metric_result|
+    metric_result.timestamps.zip(metric_result.values).reverse_each do |time, value|
+      puts "Time: #{time}, Value: #{value}"
+      csv << [time, value]
+    end
+  end
+end
