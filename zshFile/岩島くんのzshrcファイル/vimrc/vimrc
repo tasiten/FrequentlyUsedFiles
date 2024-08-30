@@ -1,0 +1,22 @@
+" 行番号の表示
+set number
+" タブ幅の設定
+set tabstop=4
+set expandtab
+" ファイルを読み込むとき，タブの幅をスペース4つ分にする
+set shiftwidth=4
+" 改行のとき自動でインデント
+set smartindent
+" カーソルのある行の色を変える
+set cursorline
+" 検索している文字に色をつける
+set hlsearch
+" jjでinsertからnomalへ
+inoremap <silent> jj <ESC>
+" ヤンクでクリップボードにコピー
+set clipboard=unnamed,autoselect
+
+" カラースキームの設定
+syntax enable
+colorscheme molokai
+
