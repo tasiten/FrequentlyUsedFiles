@@ -2,7 +2,7 @@
 
 ## zshrc
 ```
-bash install.sh
+source install.sh
 ```
 
 oh-my-zshをインストールする．
