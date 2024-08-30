@@ -1,7 +1,7 @@
-#local triangle_right=$'\ue0b0'
-#local triangle_left=$'\ue0b2'
-local triangle_right=$''
-local triangle_left=$''
+local triangle_right=$'\ue0b0'
+local triangle_left=$'\ue0b2'
+#local triangle_right=$''
+#local triangle_left=$''
 
 local user_host="%B%F{green}${triangle_left}%f%K{green}%F{black}%n@%m %k%f%F{green}%K{cyan}${triangle_right}%k%f%b"
 local current_dir="%B%K{cyan}%F{black}%~ %k%f%K{yellow}%F{cyan}${triangle_right}%f%k%b"
