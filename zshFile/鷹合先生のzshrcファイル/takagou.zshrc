@@ -571,4 +571,4 @@ alias df="df -h -x tmpfs -x devtmpfs -x squashfs"
 
 # ANACONDA
 #. ${HOME}/anaconda3/etc/profile.d/conda.sh
-
+source ~/anaconda3/etc/profile.d/conda.sh
