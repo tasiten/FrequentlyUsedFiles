@@ -9,7 +9,7 @@ local vcs_branch='$(git_prompt_info)$(hg_prompt_info)'
 local vsc_branch_color="%B%K{yellow}%F{black}${vcs_branch}%f%k%F{yellow}${triangle_right}%f%b"
 local current_time_color="%F{cyan}${triangle_left}%f%K{cyan}%F{black}%*%k%f%F{cyan}${triangle_right}%f"
 local user_symbol="%(!.#.$)"
-local user_symbol_color="%K{cyan}%F{black} ${user_symbol}%k%f%F{red}${triangle_right}%f"
+local user_symbol_color="%K{cyan}%F{black} ${user_symbol}%k%f%F{cyan}${triangle_right}%f"
 local rvm_ruby='$(ruby_prompt_info)'
 local venv_prompt='$(virtualenv_prompt_info)$(conda_prompt_info)'
 
