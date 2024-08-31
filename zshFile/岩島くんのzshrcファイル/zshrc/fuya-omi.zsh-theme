@@ -9,19 +9,20 @@ local vcs_branch='$(git_prompt_info)$(hg_prompt_info)'
 local vsc_branch_color="%B%K{yellow}%F{black}${vcs_branch}%f%k%F{yellow}${triangle_right}%f%b"
 local current_time_color="%F{cyan}${triangle_left}%f%K{cyan}%F{black}%*%k%f%F{cyan}${triangle_right}%f"
 local user_symbol="%(!.#.$)"
-local user_symbol_color="%K{cyan}%F{black} ${user_symbol}%k%f%F{cyan}${triangle_right}%f"
+local user_symbol_color="%K{cyan}%F{black} ${user_symbol}%k%f%F{red}${triangle_right}%f"
 local rvm_ruby='$(ruby_prompt_info)'
 local venv_prompt='$(virtualenv_prompt_info)$(conda_prompt_info)'
 
+
 virtualenv_prompt_info() {
   if [[ -n "$VIRTUAL_ENV" ]]; then
-    echo "%K{green}%F{white}${ZSH_THEME_VIRTUALENV_PREFIX}${VIRTUAL_ENV:t}${ZSH_THEME_VIRTUALENV_SUFFIX}%k%f"
+    echo "%{%K{green}%F{white}${ZSH_THEME_VIRTUALENV_PREFIX}${VIRTUAL_ENV:t}${ZSH_THEME_VIRTUALENV_SUFFIX}%k%f%}"
   fi
 }
 
 conda_prompt_info() {
   if [ -n "${CONDA_DEFAULT_ENV}" ]; then
-    echo "%K{green}%F{white}${ZSH_THEME_VIRTUALENV_PREFIX}${CONDA_DEFAULT_ENV}${ZSH_THEME_VIRTUALENV_SUFFIX}%k%f"
+    echo "%{%K{green}%F{white}${ZSH_THEME_VIRTUALENV_PREFIX}${CONDA_DEFAULT_ENV}${ZSH_THEME_VIRTUALENV_SUFFIX}%k%f%}"
   fi
 }
 
@@ -33,9 +34,9 @@ fi
 
 ZSH_THEME_RVM_PROMPT_OPTIONS="i v g"
 
-PROMPT="╭─${user_host}${current_dir}${vsc_branch_color}
-╰─${current_time_color}${user_symbol_color}"
-RPROMPT="${venv_prompt}"
+PROMPT="╭─${venv_prompt}${user_host}${current_dir}${vsc_branch_color}
+'-${current_time_color}${user_symbol_color}"
+
 
 ZSH_THEME_GIT_PROMPT_PREFIX=""
 ZSH_THEME_GIT_PROMPT_SUFFIX=""
@@ -56,12 +57,24 @@ ZSH_THEME_VIRTUAL_ENV_PROMPT_SUFFIX="› "
 ZSH_THEME_VIRTUALENV_PREFIX="$ZSH_THEME_VIRTUAL_ENV_PROMPT_PREFIX"
 ZSH_THEME_VIRTUALENV_SUFFIX="$ZSH_THEME_VIRTUAL_ENV_PROMPT_SUFFIX"
 
-export VIRTUAL_ENV_DISABLE_PROMPT=1
-
-# PROMPT="╭─${user_host}${current_dir}${rvm_ruby}${vcs_branch}${venv_prompt}${kube_prompt}
-# ╰─%B${user_symbol}%b "
-# RPROMPT="%B${return_code}%b"
+# export VIRTUAL_ENV_DISABLE_PROMPT=1
 
 # 仮想環境の表示を無効化する．
-export VIRTUAL_ENV_DISABLE_PROMPT=1
+ export VIRTUAL_ENV_DISABLE_PROMPT=1
 
+# 上下矢印キーを押したとき，補完の重複を避けるためのカスタム履歴検索機能
+function up-line-or-beginning-search-no-dups() {
+    local -a up_hist
+    up_hist=(${(u)history})
+    zle up-line-or-beginning-search -n $up_hist
+}
+zle -N up-line-or-beginning-search-no-dups
+bindkey '^[[A' up-line-or-beginning-search-no-dups
+
+function down-line-or-beginning-search-no-dups() {
+    local -a down_hist
+    down_hist=(${(u)history})
+    zle down-line-or-beginning-search -n $down_hist
+}
+zle -N down-line-or-beginning-search-no-dups
+bindkey '^[[B' down-line-or-beginning-search-no-dups
