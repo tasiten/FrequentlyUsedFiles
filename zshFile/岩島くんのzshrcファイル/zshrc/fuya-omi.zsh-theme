@@ -12,6 +12,7 @@ local user_symbol="%(!.#.$)"
 local user_symbol_color="%K{cyan}%F{black} ${user_symbol}%k%f%F{red}${triangle_right}%f"
 local rvm_ruby='$(ruby_prompt_info)'
 local venv_prompt='$(virtualenv_prompt_info)$(conda_prompt_info)'
+local docker='$(docker_prompt_info)'
 
 
 virtualenv_prompt_info() {
@@ -26,6 +27,14 @@ conda_prompt_info() {
   fi
 }
 
+docker_prompt_info(){
+    if [ -e /.dockerenv ]; then
+        echo "%B%K{blue}%F{black}docker%f%k%F{blue}${triangle_right}%f%b"
+    elif [ ! -e /.dockerenv ]; then
+        echo "%B%K{blue}%F{black}%f%k%F{blue}${triangle_right}%f%b"
+    fi
+}
+
 if [[ "${plugins[@]}" =~ 'kube-ps1' ]]; then
   local kube_prompt='$(kube_ps1)'
 else
@@ -34,7 +43,7 @@ fi
 
 ZSH_THEME_RVM_PROMPT_OPTIONS="i v g"
 
-PROMPT="╭─${venv_prompt}${user_host}${current_dir}${vsc_branch_color}
+PROMPT="╭─${venv_prompt}${user_host}${current_dir}${vsc_branch_color}${docker}
 '-${current_time_color}${user_symbol_color}"
 
 
