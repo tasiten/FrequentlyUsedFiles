@@ -69,8 +69,10 @@ ZSH_THEME_VIRTUALENV_SUFFIX="$ZSH_THEME_VIRTUAL_ENV_PROMPT_SUFFIX"
 # anaconda実行
 eval "$(~/anaconda3/bin/conda shell.bash hook)"
 
-# 仮想環境の表示を無効化する．
- export VIRTUAL_ENV_DISABLE_PROMPT=1
+# venvによる仮想環境の表示を無効化する．
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+# Anacondaによる仮想環境の表示を無効化する．
+conda config --set changeps1 false
 
 # 上下矢印キーを押したとき，補完の重複を避けるためのカスタム履歴検索機能
 function up-line-or-beginning-search-no-dups() {
