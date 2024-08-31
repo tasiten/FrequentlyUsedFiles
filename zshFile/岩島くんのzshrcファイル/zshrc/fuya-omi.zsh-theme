@@ -1,3 +1,7 @@
+#この一文で不適切なロケール設定を修正してくれる
+eval $(/usr/bin/locale-check C.UTF-8)
+
+
 #local triangle_right=$'\ue0b0'
 #local triangle_left=$'\ue0b2'
 local triangle_right=$''
@@ -94,9 +98,3 @@ function down-line-or-beginning-search-no-dups() {
 }
 zle -N down-line-or-beginning-search-no-dups
 bindkey '^[[B' down-line-or-beginning-search-no-dups
-
-
-# Set the locale to UTF-8
-export LANG=ja_JP.UTF-8
-export LC_ALL=ja_JP.UTF-8
-export LC_CTYPE=ja_JP.UTF-8
