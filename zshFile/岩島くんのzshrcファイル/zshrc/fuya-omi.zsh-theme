@@ -90,3 +90,9 @@ function down-line-or-beginning-search-no-dups() {
 }
 zle -N down-line-or-beginning-search-no-dups
 bindkey '^[[B' down-line-or-beginning-search-no-dups
+
+
+# Set the locale to UTF-8
+export LANG=ja_JP.UTF-8
+export LC_ALL=ja_JP.UTF-8
+export LC_CTYPE=ja_JP.UTF-8
