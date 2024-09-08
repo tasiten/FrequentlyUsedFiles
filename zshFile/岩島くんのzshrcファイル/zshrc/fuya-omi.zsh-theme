@@ -73,7 +73,7 @@ ZSH_THEME_VIRTUALENV_SUFFIX="$ZSH_THEME_VIRTUAL_ENV_PROMPT_SUFFIX"
 # anaconda実行
 # Check if conda command is available and then initialize it
 if [ -f "~/anaconda3/bin/conda" ]; then
-    eval "$(~/anaconda3/bin/conda shell.bash hook)"
+    if [ -f "$HOME/anaconda3/bin/conda" ]; then
     # Anacondaによる仮想環境の表示を無効化する．
     conda config --set changeps1 false
 fi
