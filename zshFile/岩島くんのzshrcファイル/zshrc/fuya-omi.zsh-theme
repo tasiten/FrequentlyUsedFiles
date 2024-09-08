@@ -76,6 +76,8 @@ if [ -f "$HOME/miniconda3/bin/conda" ]; then
     eval "$(~/miniconda3/bin/conda shell.bash hook)"
     # Anacondaによる仮想環境の表示を無効化する．
     conda config --set changeps1 false
+    # 仮想環境を抜けておく
+    conda deactivate
 fi
 
 # venvによる仮想環境の表示を無効化する．
