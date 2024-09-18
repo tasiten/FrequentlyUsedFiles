@@ -10,4 +10,4 @@ cp zshrc ~/.zshrc
 cp fuya-omi.zsh-theme ~/.oh-my-zsh/themes/
 source ~/.zshrc
 
-chsh -s /bin/zsh {$USER}
+chsh -s /bin/zsh $USER
