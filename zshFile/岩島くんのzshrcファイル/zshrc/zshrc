@@ -99,3 +99,10 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# adbコマンドを使うための環境変数
+ADB_MDNS_OPENSCREEN=1
+ANDROID_SDK=$HOME/Android/Sdk/
+PATH=$PATH:$ANDROID_SDK/cmdline-tools/latest/bin
+PATH=$PATH:$ANDROID_SDK/cmdline-tools/bin
+PATH=$PATH:$ANDROID_SDK/platform-tools 
